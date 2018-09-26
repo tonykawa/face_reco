@@ -3,5 +3,5 @@ class imagePath:
     unknown = "image/unknown/"
     classified = "image/classified/"
 
-class imageExtension:
-    ext = ["jpg", "jpeg", "png"]
+class fileExtension:
+    image = ["jpg", "jpeg", "png"]

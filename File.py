@@ -23,7 +23,8 @@ def importUnknownImages():
 
 def createFolder(knownFilename,unknownFilename, isCopy):
     unknownPath = common.imagePath.unknown + unknownFilename
-    moveToPath = common.imagePath.classified + knownFilename
+    moveToPath = common.imagePath.classified + removeFileExtension(knownFilename)
+
     pathlib.Path(moveToPath).mkdir(parents=True, exist_ok=True)
     if isCopy:
         shutil.copy(unknownPath, moveToPath)
@@ -31,7 +32,12 @@ def createFolder(knownFilename,unknownFilename, isCopy):
         shutil.move(unknownPath, moveToPath)
     gc.collect()
 
-def isImageFile(filename):
-    filename_w_ext = os.path.basename(filename)
+def isImage(file):
+    filename_w_ext = os.path.basename(file)
     filename, file_extension = os.path.splitext(filename_w_ext.lower())
-    return common.imageExtension.ext.__contains__(file_extension.strip('.'))
+    return common.fileExtension.image.__contains__(file_extension.strip('.'))
+
+def removeFileExtension(file):
+    filename_w_ext = os.path.basename(file)
+    filename, file_extension = os.path.splitext(filename_w_ext.lower())
+    return filename
